@@ -6,7 +6,7 @@ import { dusunData, type DisasterDetail } from "@/data/datadususn";
 import { getDusunImageById, getDusunAltText } from "@/data/image";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { BackButton } from "@/app/components2/ui/back-button";
+import { BackButton } from "@/components/ui/back-button";
 
 // Dynamic import untuk Leaflet
 const MapContainer = dynamic(

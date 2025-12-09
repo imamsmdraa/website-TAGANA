@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { InfoModal } from '@/app/components2/ui/modal_desa';
+import { InfoModal } from '@/components/ui/modal_desa';
 import { dusunData } from '@/data/datadususn';
 
-const PetaSriharjo = dynamic(() => import('../components/petaSriharjo'), {
+const PetaSriharjo = dynamic(() => import('./components/petaSriharjo'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center bg-gray-50">

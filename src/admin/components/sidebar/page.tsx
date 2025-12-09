@@ -126,7 +126,7 @@ export default function Sidebar() {
               <button
                 key={item.label}
                 onClick={() => handleMenuClick(item)}
-                className={`w-full flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 ${
+                className={`w-full flex items-center cursor-pointer space-x-3 px-3 py-3 rounded-lg transition-all duration-200 ${
                   pathname === item.path
                     ? "bg-blue-500 text-white shadow-md"
                     : "text-gray-700 hover:bg-gray-100"

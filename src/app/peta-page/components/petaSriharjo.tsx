@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, useMap, Polygon, LayersControl, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { InfoModal } from "@/app/components2/ui/modal_desa";
+import { InfoModal } from "@/components/ui/modal_desa";
 import { desaBoundary } from "@/data/PetaSriharjoBoundary";
 import { dusunData } from "@/data/datadususn";
 import { sriharjoKMLBoundaries } from "@/data/sriharjoKMLData";
