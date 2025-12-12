@@ -60,7 +60,7 @@ export default function LoginForm() {
           id="rememberMe"
           checked={rememberMe}
           onChange={(e) => setRememberMe(e.target.checked)}
-          className="w-4 h-4 rounded border-gray-300"
+          className="w-4 h-4 rounded border-gray-300 cursor-pointer"
         />
         <label htmlFor="rememberMe" className="text-sm text-gray-700">Ingat Aku</label>
           </div>
