@@ -20,9 +20,9 @@ export default function AddAction({ onClose }: AddActionProps) {
         <div className="flex gap-2 p-2 border-b">
           <button
             onClick={() => setActiveTab('rt')}
-            className={`flex-1 px-6 py-3 font-semibold rounded-lg transition-colors ${
+            className={`cursor-pointer flex-1 px-6 py-3 font-semibold rounded-lg transition-colors ${
               activeTab === 'rt'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-blue-400 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -30,9 +30,9 @@ export default function AddAction({ onClose }: AddActionProps) {
           </button>
           <button
             onClick={() => setActiveTab('penduduk')}
-            className={`flex-1 px-6 py-3 font-semibold rounded-lg transition-colors ${
+            className={`cursor-pointer flex-1 px-6 py-3 font-semibold rounded-lg transition-colors ${
               activeTab === 'penduduk'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-blue-400 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >

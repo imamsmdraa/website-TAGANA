@@ -208,13 +208,13 @@ export default function AddActionPenduduk({ onClose }: AddActionPendudukProps) {
                 jumlahPenyandangDisabilitas: '',
                 jumlahPendudukMiskin: ''
               })}
-              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              className="cursor-pointer px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Reset
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="cursor-pointer px-6 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Simpan Data Penduduk
             </button>

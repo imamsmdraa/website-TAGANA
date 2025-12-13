@@ -22,11 +22,11 @@ export default function ModalsEdit({ disaster, dusunName, onClose, onSave }: Mod
   };
 
   return (
-    <div className="fixed inset-0 bg-black/10 backdrop-blur-xs bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-blue-500/30 rounded-lg shadow-xl w-full max-w-md p-6">
+    <div className="fixed inset-0 bg-black/10 backdrop-blurs-xs bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Edit Bencana - {dusunName}</h2>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded">
+          <button onClick={onClose} className=" cursor-pointer p-1 hover:bg-gray-100 rounded">
             <X size={20} />
           </button>
         </div>
@@ -72,13 +72,13 @@ export default function ModalsEdit({ disaster, dusunName, onClose, onSave }: Mod
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border rounded-lg hover:bg-gray-100 transition"
+              className="px-4 py-2 cursor-pointer shadow-md rounded-lg hover:bg-gray-100 transition"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+              className="px-4 py-2 cursor-pointer bg-blue-500 text-white shadow-md rounded-lg hover:bg-blue-600 transition"
             >
               Simpan
             </button>

@@ -23,7 +23,7 @@ export default function AdminKependudukanPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-[100px]">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-800">Data Kependudukan</h1>

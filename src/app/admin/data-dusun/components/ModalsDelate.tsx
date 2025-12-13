@@ -9,8 +9,8 @@ interface ModalsDeleteProps {
 
 export default function ModalsDelete({ onClose, onConfirm }: ModalsDeleteProps) {
   return (
-    <div className="fixed inset-0 backdrop-blur-xs bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-red-400/30 backdrop-blur-xs rounded-lg shadow-xl w-full max-w-md p-6 border border-white/20">
+    <div className="fixed inset-0 flex bg-white/50 items-center justify-center z-50">
+      <div className="bg-white backdrop-blur-xs rounded-lg shadow-xl w-full max-w-md p-6 border border-white/20">
         <div className="flex flex-col items-center text-center">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
             <AlertTriangle size={32} className="text-red-600" />
@@ -24,13 +24,13 @@ export default function ModalsDelete({ onClose, onConfirm }: ModalsDeleteProps) 
           <div className="flex gap-3 w-full">
             <button
               onClick={onClose}
-              className="flex-1 px-4 bg-green-400 py-2  rounded-lg hover:bg-green-500 transition"
+              className="cursor-pointer text-white flex-1 px-4 bg-blue-400 py-2  rounded-lg hover:bg-blue-500 transition"
             >
               Batal
             </button>
             <button
               onClick={onConfirm}
-              className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+              className="cursor-pointer flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
             >
               Hapus
             </button>

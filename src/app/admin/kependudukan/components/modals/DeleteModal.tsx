@@ -11,7 +11,7 @@ interface DeleteModalProps {
 
 export default function DeleteModal({ title, message, onConfirm, onClose }: DeleteModalProps) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-white/50 bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-md w-full">
         <div className="p-6">
           <div className="flex items-center gap-4 mb-4">
@@ -28,13 +28,13 @@ export default function DeleteModal({ title, message, onConfirm, onClose }: Dele
           <div className="flex justify-end gap-3">
             <button
               onClick={onClose}
-              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              className="cursor-pointer px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Batal
             </button>
             <button
               onClick={onConfirm}
-              className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="cursor-pointer px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
             >
               Hapus
             </button>

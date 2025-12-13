@@ -16,7 +16,7 @@ export function QuickActions({ onAdd }: { onAdd?: () => void }) {
       <div className="space-y-3">
         <button
           onClick={handleAdd}
-          className="w-full md:w-auto flex items-center space-x-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
+          className="cursor-pointer w-full md:w-auto flex items-center space-x-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
         >
           <div className="bg-blue-500 p-2 rounded-lg group-hover:scale-110 transition-transform">
             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@ export function QuickActions({ onAdd }: { onAdd?: () => void }) {
           <div className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative">
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 z-10 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors"
+              className="cursor-pointer absolute top-4 right-4 z-10 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

@@ -147,13 +147,13 @@ export function PendudukTable() {
                     <div className="flex justify-center gap-2">
                       <button 
                         onClick={() => handleEdit(item)}
-                        className="p-2 rounded-lg shadow-sm hover:bg-blue-100 transition"
+                        className="cursor-pointer p-2 rounded-lg shadow-sm hover:bg-blue-100 transition"
                       >
                         <Pencil size={16} className="text-blue-500" />
                       </button>
                       <button 
                         onClick={() => handleDelete(item)}
-                        className="p-2 rounded-lg shadow-sm hover:bg-red-100 transition"
+                        className="cursor-pointer p-2 rounded-lg shadow-sm hover:bg-red-100 transition"
                       >
                         <Trash2 size={16} className="text-red-500" />
                       </button>
@@ -171,7 +171,7 @@ export function PendudukTable() {
         <div className="flex justify-center">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+            className="px-6 py-3 cursor-pointer bg-blue-400 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
           >
             {showAll ? 'Lihat Lebih Sedikit' : `Lihat Selengkapnya (${pendudukData.length - ITEMS_PER_PAGE} lainnya)`}
           </button>
