@@ -1,69 +1,55 @@
 'use client';
 
-import React, { useState } from 'react';
-import { dusunData, Dusun } from '@/data/datadususn';
-import Card from '@/components/ui/card';
+import { useState } from 'react';
 import EditModal from './modals/EditModal';
-import DeleteModal from './modals/DeleteModal';
 import { useAlert } from '@/components/ui/Alert';
-import { Pencil, Trash2 } from 'lucide-react';
+import { useDusun } from '@/hooks/useDusun.hooks';
+import { Pencil } from 'lucide-react';
+
+interface DusunDB {
+  id: number;
+  nama: string;
+  jumlah_kk: number;
+  jumlah_laki_laki: number;
+  jumlah_perempuan: number;
+  jumlah_balita: number;
+  jumlah_lansia: number;
+  jumlah_ibu_hamil: number;
+  jumlah_disabilitas: number;
+  jumlah_miskin: number;
+}
 
 export function PendudukTable() {
+  const { data: pendudukData, isLoading, updateDusunStats } = useDusun();
   const { showAlert } = useAlert();
-  const [pendudukData, setPendudukData] = useState<Dusun[]>(dusunData);
-  const [editingItem, setEditingItem] = useState<Dusun | null>(null);
-  const [deletingItem, setDeletingItem] = useState<Dusun | null>(null);
+  const [editingItem, setEditingItem] = useState<DusunDB | null>(null);
   const [showAll, setShowAll] = useState(false);
 
   const ITEMS_PER_PAGE = 5;
-  const displayData = showAll ? pendudukData : pendudukData.slice(0, ITEMS_PER_PAGE);
+  
+  const safeData = pendudukData || [];
+  const displayData = showAll ? safeData : safeData.slice(0, ITEMS_PER_PAGE);
 
-  const handleEdit = (item: Dusun) => {
+  const handleEdit = (item: DusunDB) => {
     setEditingItem(item);
   };
 
-  const handleDelete = (item: Dusun) => {
-    setDeletingItem(item);
-  };
+  const handleSaveEdit = async (updatedData: any) => {
+    if (!editingItem) return;
 
-  const handleSaveEdit = (updatedData: any) => {
-    const updatedPenduduk = pendudukData.map((item) =>
-      item.id === editingItem?.id
-        ? {
-            ...item,
-            jumlahKK: Number(updatedData.jumlahKK),
-            jumlahLakiLaki: Number(updatedData.jumlahLakiLaki),
-            jumlahPerempuan: Number(updatedData.jumlahPerempuan),
-            jumlahBalita: Number(updatedData.jumlahBalita),
-            jumlahLansia: Number(updatedData.jumlahLansia),
-            jumlahIbuHamil: Number(updatedData.jumlahIbuHamil),
-            jumlahPenyandangDisabilitas: Number(updatedData.jumlahPenyandangDisabilitas),
-            jumlahPendudukMiskin: Number(updatedData.jumlahPendudukMiskin)
-          }
-        : item
-    );
-    
-    setPendudukData(updatedPenduduk);
-    showAlert({
-      type: 'success',
-      title: 'Data Berhasil Diperbarui',
-      message: `Data penduduk ${editingItem?.name} berhasil diubah`
-    });
-    setEditingItem(null);
-  };
+    const payload = {
+      jumlah_kk: Number(updatedData.jumlahKK),
+      jumlah_laki_laki: Number(updatedData.jumlahLakiLaki),
+      jumlah_perempuan: Number(updatedData.jumlahPerempuan),
+      jumlah_balita: Number(updatedData.jumlahBalita),
+      jumlah_lansia: Number(updatedData.jumlahLansia),
+      jumlah_ibu_hamil: Number(updatedData.jumlahIbuHamil),
+      jumlah_disabilitas: Number(updatedData.jumlahPenyandangDisabilitas),
+      jumlah_miskin: Number(updatedData.jumlahPendudukMiskin)
+    };
 
-  const handleConfirmDelete = () => {
-    if (deletingItem) {
-      const updatedPenduduk = pendudukData.filter((item) => item.id !== deletingItem.id);
-      setPendudukData(updatedPenduduk);
-      
-      showAlert({
-        type: 'success',
-        title: 'Data Berhasil Dihapus',
-        message: `Data penduduk ${deletingItem.name} berhasil dihapus`
-      });
-      setDeletingItem(null);
-    }
+    const success = await updateDusunStats(editingItem.id, payload);
+    if (success) setEditingItem(null);
   };
 
   const editFields = [
@@ -76,6 +62,10 @@ export function PendudukTable() {
     { name: 'jumlahPenyandangDisabilitas', label: 'Jumlah Penyandang Disabilitas', type: 'number' as const, required: true },
     { name: 'jumlahPendudukMiskin', label: 'Jumlah Penduduk Miskin', type: 'number' as const, required: true }
   ];
+
+  if (isLoading) {
+    return <div className="p-6 text-center text-gray-500">Memuat data statistik...</div>;
+  }
 
   return (
     <div className="w-full flex flex-col gap-6 bg-white p-6 rounded-lg shadow-sm">
@@ -106,41 +96,42 @@ export function PendudukTable() {
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
                     {index + 1}
                   </td>
-
+                  
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm font-medium">
-                    {item.name}
+                    {item.nama} 
+                  </td>
+
+                  {/* Perhatikan: snake_case (bukan camelCase) */}
+                  <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
+                    {item.jumlah_kk}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahKK}
+                    {item.jumlah_laki_laki}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahLakiLaki}
+                    {item.jumlah_perempuan}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahPerempuan}
+                    {item.jumlah_balita}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahBalita}
+                    {item.jumlah_lansia}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahLansia}
+                    {item.jumlah_ibu_hamil}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahIbuHamil}
+                    {item.jumlah_disabilitas}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahPenyandangDisabilitas}
-                  </td>
-
-                  <td className="bg-white shadow-sm rounded-sm py-3 text-center text-sm">
-                    {item.jumlahPendudukMiskin}
+                    {item.jumlah_miskin}
                   </td>
 
                   <td className="bg-white shadow-sm rounded-sm py-3">
@@ -151,12 +142,10 @@ export function PendudukTable() {
                       >
                         <Pencil size={16} className="text-blue-500" />
                       </button>
-                      <button 
-                        onClick={() => handleDelete(item)}
-                        className="cursor-pointer p-2 rounded-lg shadow-sm hover:bg-red-100 transition"
-                      >
+                      {/* Tombol Delete disembunyikan dulu karena logicnya belum ada di service */}
+                      {/* <button className="cursor-pointer p-2 rounded-lg shadow-sm hover:bg-red-100 transition">
                         <Trash2 size={16} className="text-red-500" />
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>
@@ -167,47 +156,38 @@ export function PendudukTable() {
       </div>
 
       {/* Show More/Less Button */}
-      {pendudukData.length > ITEMS_PER_PAGE && (
+      {safeData.length > ITEMS_PER_PAGE && (
         <div className="flex justify-center">
           <button
             onClick={() => setShowAll(!showAll)}
             className="px-6 py-3 cursor-pointer bg-blue-400 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
           >
-            {showAll ? 'Lihat Lebih Sedikit' : `Lihat Selengkapnya (${pendudukData.length - ITEMS_PER_PAGE} lainnya)`}
+            {showAll ? 'Lihat Lebih Sedikit' : `Lihat Selengkapnya (${safeData.length - ITEMS_PER_PAGE} lainnya)`}
           </button>
         </div>
       )}
 
       <div className="text-sm text-gray-600">
-        Total Dusun: <span className="font-semibold">{pendudukData.length}</span>
-        {!showAll && ` | Menampilkan: ${Math.min(ITEMS_PER_PAGE, pendudukData.length)}`}
+        Total Dusun: <span className="font-semibold">{safeData.length}</span>
+        {!showAll && ` | Menampilkan: ${Math.min(ITEMS_PER_PAGE, safeData.length)}`}
       </div>
 
       {editingItem && (
         <EditModal
-          title={`Edit Data Penduduk - ${editingItem.name}`}
+          title={`Edit Data Penduduk - ${editingItem.nama}`}
           fields={editFields}
           initialData={{
-            jumlahKK: editingItem.jumlahKK,
-            jumlahLakiLaki: editingItem.jumlahLakiLaki,
-            jumlahPerempuan: editingItem.jumlahPerempuan,
-            jumlahBalita: editingItem.jumlahBalita,
-            jumlahLansia: editingItem.jumlahLansia,
-            jumlahIbuHamil: editingItem.jumlahIbuHamil,
-            jumlahPenyandangDisabilitas: editingItem.jumlahPenyandangDisabilitas,
-            jumlahPendudukMiskin: editingItem.jumlahPendudukMiskin
+            jumlahKK: editingItem.jumlah_kk,
+            jumlahLakiLaki: editingItem.jumlah_laki_laki,
+            jumlahPerempuan: editingItem.jumlah_perempuan,
+            jumlahBalita: editingItem.jumlah_balita,
+            jumlahLansia: editingItem.jumlah_lansia,
+            jumlahIbuHamil: editingItem.jumlah_ibu_hamil,
+            jumlahPenyandangDisabilitas: editingItem.jumlah_disabilitas,
+            jumlahPendudukMiskin: editingItem.jumlah_miskin
           }}
           onSave={handleSaveEdit}
           onClose={() => setEditingItem(null)}
-        />
-      )}
-
-      {deletingItem && (
-        <DeleteModal
-          title="Hapus Data Penduduk"
-          message={`Apakah Anda yakin ingin menghapus data penduduk ${deletingItem.name}?`}
-          onConfirm={handleConfirmDelete}
-          onClose={() => setDeletingItem(null)}
         />
       )}
     </div>
