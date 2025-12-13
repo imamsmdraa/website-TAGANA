@@ -1,7 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import  { useRouter } from "next/navigation";
+// import  { useRouter } from "next/navigation";
 
 type Status = "published" | "draft";
 
@@ -12,27 +10,31 @@ const statusBadge = (status: Status) => {
   return "bg-gray-200 text-gray-700";
 };
 
-export default function BeritaTerkini() {
-  const router = useRouter()
+export default function BeritaList() {
+  //   const router = useRouter()
   const beritaDummy: {
+    id: number;
     image: string;
     judul: string;
     tanggal: string;
     status: Status;
   }[] = [
     {
+      id: 1,
       image: "/ketos.png",
       judul: "Perbaikan Jalan Dusun A Telah Selesai",
       tanggal: "12 Mar 2025",
       status: "published",
     },
     {
+      id: 2,
       image: "/ketos.png",
       judul: "Perbaikan Jalan Dusun A Telah Selesai",
       tanggal: "12 Mar 2025",
       status: "published",
     },
     {
+      id: 3,
       image: "/ketos.png",
       judul: "Perbaikan Jalan Dusun A Telah Selesai",
       tanggal: "12 Mar 2025",
@@ -42,12 +44,12 @@ export default function BeritaTerkini() {
 
   return (
     <div className="h-full w-full flex flex-col gap-3 rounded-lg">
-      <div className="flex justify-between items-center">
+      {/* <div className="flex justify-between items-center">
         <h1 className="text-sm font-semibold">Berita Terkini</h1>
         <button onClick={() => router.push("/admin/beritaTerkini")} className="text-blue-500 text-sm cursor-pointer hover:underline">
           Lihat Semua
         </button>
-      </div>
+      </div> */}
 
       {beritaDummy.map((berita, index) => (
         <div

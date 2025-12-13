@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown, Send, Tag, TrendingUp } from "lucide-react";
 import Card from "@/components/ui/card";
 import RichTextEditor from "./components/RichTextEditor";
-import ImageUpload from "./components/imageUpload";
+// import ImageUpload from "./components/imageUpload";
 import BeritaTerkini from "./components/beritaTerkini";
 
 export default function KelolaBeritaPage() {
@@ -87,7 +87,7 @@ export default function KelolaBeritaPage() {
         </div>
         <RichTextEditor />
 
-        <ImageUpload />
+        {/* <ImageUpload /> */}
 
         <div className="flex flex-row gap-3 items-center justify-end w-full">
           <button className="min-w-20 bg-gray-300 shadow-sm hover:bg-gray-400 cursor-pointer duration-300 rounded-xl py-2 px-4">
