@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Card from '@/components/ui/card';
 import { useAlert } from '@/components/ui/Alert';
+import { useDusun } from '@/hooks/useDusun.hooks'; 
+import { rtService } from '@/services/rtService';
 
 const DUSUN_LIST = [
   "Miri", "Jati", "Mojohuro", "Pelemadu", "Sungapan", "Gondosuli",
@@ -15,6 +16,7 @@ interface AddActionRTProps {
 
 export default function AddActionRT({ onClose }: AddActionRTProps) {
   const { showAlert } = useAlert();
+  const { data: dusunList, isLoading } = useDusun();
 
   const [rtForm, setRtForm] = useState({
     dusun: '',
@@ -23,118 +25,137 @@ export default function AddActionRT({ onClose }: AddActionRTProps) {
     jenisKelamin: ''
   });
 
-  const handleRtSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleRtSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!rtForm.dusun || !rtForm.rt || !rtForm.nama) {
-      showAlert({
-        type: 'error',
-        title: 'Gagal Menyimpan',
-        message: 'Mohon lengkapi semua field yang wajib diisi'
-      });
+      showAlert({ type: 'error', title: 'Gagal', message: 'Lengkapi data wajib!' });
       return;
     }
 
-    console.log('RT Data:', rtForm);
-    showAlert({
-      type: 'success',
-      title: 'Data Berhasil Disimpan',
-      message: `Data RT ${rtForm.rt} - Dusun ${rtForm.dusun} berhasil ditambahkan`
-    });
-    
-    setRtForm({ dusun: '', rt: '', nama: '', jenisKelamin: '' });
-    
-    // Close modal after successful submission
-    setTimeout(() => {
-      onClose?.();
-    }, 1500);
+    setIsSubmitting(true);
+
+    try {
+      const targetDusun = dusunList.find(
+        (d) => d.nama.toLowerCase() === rtForm.dusun.toLowerCase()
+      );
+
+      if (!targetDusun) throw new Error("Dusun tidak ditemukan");
+
+      const payload = {
+        dusun_id: targetDusun.id,
+        nomor_rt: rtForm.rt,
+        nama_ketua: rtForm.nama,
+        jenis_kelamin_ketua: rtForm.jenisKelamin || null
+      };
+
+      await rtService.create(payload);
+
+      showAlert({
+        type: 'success',
+        title: 'Berhasil',
+        message: `RT ${rtForm.rt} di ${rtForm.dusun} berhasil ditambahkan`
+      });
+
+      setRtForm({ dusun: '', rt: '', nama: '', jenisKelamin: '' });
+      if (onClose) onClose();
+
+    } catch (error) {
+      console.error(error);
+      showAlert({ type: 'error', title: 'Error', message: 'Gagal menyimpan data RT' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <Card>
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">Tambah Data RT</h2>
-        
-        <form onSubmit={handleRtSubmit} className="space-y-4">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <h3 className="text-lg font-semibold text-gray-800 mb-6">Tambah Data RT</h3>
+      
+      <form onSubmit={handleRtSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Dusun <span className="text-red-500">*</span>
+              Dusun
             </label>
             <select
               value={rtForm.dusun}
               onChange={(e) => setRtForm({ ...rtForm, dusun: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white"
+              disabled={isLoading}
             >
-              <option value="">Pilih Dusun</option>
-              {DUSUN_LIST.map((dusun) => (
-                <option key={dusun} value={dusun}>{dusun}</option>
+              <option value="">-- Pilih Dusun --</option>
+              {DUSUN_LIST.map((d) => (
+                <option key={d} value={d}>{d}</option>
               ))}
             </select>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                RT <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={rtForm.rt}
-                onChange={(e) => setRtForm({ ...rtForm, rt: e.target.value })}
-                placeholder="Contoh: 001"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Nama Kepala RT <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={rtForm.nama}
-                onChange={(e) => setRtForm({ ...rtForm, nama: e.target.value })}
-                placeholder="Nama lengkap"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              />
-            </div>
-          </div>
-
+          {/* Nomor RT */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Jenis Kelamin
+              Nomor RT (Contoh: 001)
             </label>
-            <select
-              value={rtForm.jenisKelamin}
-              onChange={(e) => setRtForm({ ...rtForm, jenisKelamin: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="">Pilih Jenis Kelamin</option>
-              <option value="L">Laki-laki</option>
-              <option value="P">Perempuan</option>
-            </select>
+            <input
+              type="text"
+              value={rtForm.rt}
+              onChange={(e) => setRtForm({ ...rtForm, rt: e.target.value })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="001"
+            />
           </div>
+        </div>
 
-          <div className="flex justify-end gap-3 pt-4">
-            <button
-              type="button"
-              onClick={() => setRtForm({ dusun: '', rt: '', nama: '', jenisKelamin: '' })}
-              className="cursor-pointer px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              Reset
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2 bg-blue-400 cursor-pointer text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Simpan Data RT
-            </button>
-          </div>
-        </form>
-      </Card>
+        {/* Nama Ketua RT */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Nama Ketua RT
+          </label>
+          <input
+            type="text"
+            value={rtForm.nama}
+            onChange={(e) => setRtForm({ ...rtForm, nama: e.target.value })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            placeholder="Nama Lengkap"
+          />
+        </div>
+
+        {/* Jenis Kelamin */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Jenis Kelamin Ketua
+          </label>
+          <select
+            value={rtForm.jenisKelamin}
+            onChange={(e) => setRtForm({ ...rtForm, jenisKelamin: e.target.value })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white"
+          >
+            <option value="">-- Pilih --</option>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+          </select>
+        </div>
+
+        {/* Tombol Aksi */}
+        <div className="flex justify-end gap-3 pt-6 border-t mt-6">
+          <button
+            type="button"
+            onClick={() => setRtForm({ dusun: '', rt: '', nama: '', jenisKelamin: '' })}
+            className="cursor-pointer px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            Reset
+          </button>
+          <button
+            type="submit"
+            className="cursor-pointer px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-blue-300"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Menyimpan...' : 'Simpan Data RT'}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
