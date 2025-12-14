@@ -92,7 +92,7 @@ export function Navbar() {
             <div className="hidden md:flex items-center gap-6 lg:gap-8">
               <button
               onClick={() => router.push('/peta-page')}
-              className={`text-sm lg:text-base font-semibold transition-colors duration-200 relative group ${
+              className={`text-sm lg:text-base font-semibold transition-colors duration-200 relative group cursor-pointer ${
                 pathname === '/peta-page' ? 'text-[#044BB1]' : 'text-gray-700 hover:text-[#044BB1]'
               }`}
               >
@@ -104,7 +104,7 @@ export function Navbar() {
 
               <button
               onClick={() => router.push('/EventListPage')}
-              className={`text-sm lg:text-base font-semibold transition-colors duration-200 relative group ${
+              className={`text-sm lg:text-base font-semibold transition-colors duration-200 relative group cursor-pointer ${
                 pathname === '/EventListPage' ? 'text-[#044BB1]' : 'text-gray-700 hover:text-[#044BB1]'
               }`}
               >
@@ -116,7 +116,7 @@ export function Navbar() {
               
               <button
               onClick={() => router.push('/BeritaBencana')}
-              className={`text-sm lg:text-base font-semibold transition-colors duration-200 relative group ${
+              className={`text-sm lg:text-base font-semibold transition-colors duration-200 relative group cursor-pointer ${
                 pathname === '/BeritaBencana' ? 'text-[#044BB1]' : 'text-gray-700 hover:text-[#044BB1]'
               }`}
               >
