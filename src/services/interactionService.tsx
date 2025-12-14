@@ -27,6 +27,16 @@ export const interactionService = {
     return data;
   },
 
+  deleteComment: async (commentId: string) => {
+    const { error } = await supabase
+      .from("komentar")
+      .delete()
+      .eq("id", commentId);
+
+    if (error) throw error;
+    return true;
+  },
+
   getLikeCount: async (beritaId: string) => {
     const { count, error } = await supabase
       .from("likes")

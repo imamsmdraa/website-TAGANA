@@ -1,13 +1,11 @@
 "use client";
 
-import { Status, Kategori } from "../types";
-import { KATEGORI_LIST, KATEGORI_CONFIG } from "../constants";
+import { Kategori } from "../types";
+import { KATEGORI_CONFIG, KATEGORI_BENCANA, KATEGORI_UMUM } from "../constants";
 
 interface FilterSectionProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;
-  statusFilter: "all" | Status;
-  onStatusChange: (status: "all" | Status) => void;
   kategoriFilter: "all" | Kategori;
   onKategoriChange: (kategori: "all" | Kategori) => void;
   resultCount: number;
@@ -17,8 +15,6 @@ interface FilterSectionProps {
 export default function FilterSection({
   searchQuery,
   onSearchChange,
-  statusFilter,
-  onStatusChange,
   kategoriFilter,
   onKategoriChange,
   resultCount,
@@ -50,54 +46,15 @@ export default function FilterSection({
         </svg>
       </div>
 
-      {/* Status Filter */}
-      <div className="space-y-2">
-        <p className="text-xs font-semibold text-gray-700">Status:</p>
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-gray-300">
-          <button
-            onClick={() => onStatusChange("all")}
-            className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap ${
-              statusFilter === "all"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Semua
-          </button>
-          <button
-            onClick={() => onStatusChange("published")}
-            className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap ${
-              statusFilter === "published"
-                ? "bg-green-500 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Published
-          </button>
-          <button
-            onClick={() => onStatusChange("draft")}
-            className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap ${
-              statusFilter === "draft"
-                ? "bg-gray-500 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Draft
-          </button>
-        </div>
-      </div>
-
-      {/* Kategori Filter dengan Grouping */}
       <div className="space-y-3">
         <p className="text-xs font-semibold text-gray-700">Kategori:</p>
 
-        {/* Kategori Bencana */}
         <div className="space-y-2">
           <p className="text-xs font-medium text-gray-600 px-2">
             Berita Bencana
           </p>
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-gray-300">
-            {["banjir", "longsor", "kebakaran", "gempa"].map((kat) => {
+            {KATEGORI_BENCANA.map((kat) => {
               const kategori = kat as Kategori;
               return (
                 <button
@@ -131,14 +88,7 @@ export default function FilterSection({
             >
               Semua
             </button>
-            {[
-              "umum",
-              "acara",
-              "sosial",
-              "kesehatan",
-              "pendidikan",
-              "ekonomi",
-            ].map((kat) => {
+            {KATEGORI_UMUM.map((kat) => {
               const kategori = kat as Kategori;
               return (
                 <button

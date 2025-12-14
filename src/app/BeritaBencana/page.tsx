@@ -4,26 +4,9 @@ import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { NewsGrid } from "./components/NewsGrid";
 import { NoResults } from "./components/NoResults";
-<<<<<<< HEAD
-import Filterberita from "./components/FIlterBerita";
-
-interface BeritaData {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  date: string;
-  image?: string;
-  location: string;
-  status?: string;
-  content?: string;
-  author?: string;
-}
-=======
 import FilterBerita from "./components/FIlterBerita";
 import { beritaService } from "@/services/beritaService"; 
 import { Loader2 } from "lucide-react";
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
 
 export default function BeritaBencanaPage() {
   const router = useRouter();
@@ -122,35 +105,11 @@ export default function BeritaBencanaPage() {
     });
   };
 
-<<<<<<< HEAD
-  const handleReadMore = (id: number) => router.push(`/BeritaBencana/${id}`);
-
-  return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 mb-32 md:mb-48">
-      {/* Header Title */}
-      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
-        <div>
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-            Artikel Berita Bencana
-          </h1>
-          <p className="text-sm md:text-base text-gray-500">
-            <span className="font-semibold text-blue-600">
-              {filteredBerita.length}
-            </span>{" "}
-            artikel ditemukan
-          </p>
-        </div>
-      </header>
-
-      {/* Search Bar and Filter Button */}
-      <div className="mb-6 flex flex-col sm:flex-row gap-3">
-=======
   const handleReadMore = (id: string) => router.push(`/BeritaBencana/${id}`); // Sesuaikan route detail
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 mb-48">
       <div className="mb-6 flex gap-3">
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
         <div className="relative flex-1">
           <input
             type="text"
@@ -177,21 +136,7 @@ export default function BeritaBencanaPage() {
 
         <button
           onClick={() => setShowFilter(!showFilter)}
-<<<<<<< HEAD
-          className="inline-flex items-center justify-center gap-2
-         px-8 sm:px-12 py-3
-         bg-blue-600 hover:bg-blue-700
-         border border-gray-300
-         rounded-lg
-         cursor-pointer
-         text-base sm:text-lg font-medium text-white   
-         transition-colors
-         focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-          aria-label="Toggle filter"
-          aria-expanded={showFilter}
-=======
           className={`inline-flex items-center gap-2 px-8 py-2 border rounded-lg cursor-pointer text-lg font-medium transition ${showFilter ? 'bg-blue-700 text-white border-blue-700' : 'bg-blue-600 text-white border-gray-300 hover:bg-blue-700'}`}
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -218,16 +163,10 @@ export default function BeritaBencanaPage() {
         </div>
       )}
 
-<<<<<<< HEAD
-      {/* News Grid or No Results */}
-      {filteredBerita.length === 0 ? (
-        <NoResults />
-=======
       {isLoading ? (
         <div className="flex justify-center items-center py-20">
           <Loader2 className="animate-spin text-blue-600" size={40} />
         </div>
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
       ) : (
         <>
           <div className="mb-6">
@@ -253,6 +192,6 @@ export default function BeritaBencanaPage() {
           )}
         </>
       )}
-    </main>
+    </div>
   );
 }

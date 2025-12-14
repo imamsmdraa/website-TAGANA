@@ -40,24 +40,6 @@ export function DetailNewsCardPage({
   };
 
   return (
-<<<<<<< HEAD
-    <article className="min-h-screen bg-white max-w-5xl mx-auto shadow-2xl rounded-lg flex flex-col">
-      <div className="w-full max-w-4xl mx-auto px-4 py-6 md:py-12 flex-1 flex flex-col">
-        {/* Breadcrumb */}
-        <nav
-          aria-label="Breadcrumb"
-          className="flex items-center space-x-2 text-xs md:text-sm text-gray-600 mb-4 md:mb-6"
-        >
-          <Link href="/" className="hover:text-blue-600 transition-colors">
-            Beranda
-          </Link>
-          <span>›</span>
-          <Link
-            href="/kategori"
-            className="hover:text-blue-600 transition-colors"
-          >
-            Kategori
-=======
     <div className="min-h-screen bg-white max-w-5xl mx-auto shadow-2xl rounded-lg my-8">
       <div className="max-w-4xl mx-auto px-6 py-8">
         
@@ -65,59 +47,17 @@ export function DetailNewsCardPage({
         <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
           <Link href="/admin/berita" className="hover:text-blue-600 transition-colors">
             Berita
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
           </Link>
           <span>›</span>
           <span className="text-blue-600 font-medium">{berita.category}</span>
         </nav>
 
-<<<<<<< HEAD
-        {/* Category Badge */}
-        <div className="mb-3 md:mb-4">
-          <span
-            className={`inline-block px-3 md:px-4 py-1 md:py-1.5 rounded-md text-xs md:text-sm font-semibold ${getCategoryColor(
-              berita.category
-            )}`}
-            aria-label={`Kategori: ${berita.category}`}
-          >
-=======
         <div className="mb-4">
           <span className={`inline-block px-4 py-1.5 rounded-md text-sm font-semibold ${getCategoryColor(berita.category)}`}>
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
             {berita.category}
           </span>
         </div>
 
-<<<<<<< HEAD
-        {/* Title */}
-        <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight break-words">
-          {berita.title}
-        </h1>
-
-        {/* Author Info */}
-        <div className="flex items-center space-x-3 md:space-x-4 mb-6 md:mb-8">
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-300 overflow-hidden flex-shrink-0">
-            {berita.author.avatar ? (
-              <Image
-                src={berita.author.avatar}
-                alt={berita.author.name}
-                width={48}
-                height={48}
-                className="w-full h-full object-cover"
-                priority
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-blue-600 text-white font-semibold text-sm md:text-base">
-                {berita.author.name.charAt(0)}
-              </div>
-            )}
-          </div>
-          <div>
-            <p className="font-semibold text-sm md:text-base text-gray-900">
-              {berita.author.name}
-            </p>
-            <p className="text-xs md:text-sm text-gray-500">
-=======
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
           {berita.title}
         </h1>
@@ -129,118 +69,47 @@ export function DetailNewsCardPage({
           <div>
             <p className="font-semibold text-gray-900">{berita.author.name}</p>
             <p className="text-sm text-gray-500">
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
               {berita.date} • {berita.readTime}
             </p>
           </div>
         </div>
 
-<<<<<<< HEAD
-        {/* Featured Image */}
-        <div className="relative w-full aspect-[16/7] md:aspect-[16/6] mb-6 md:mb-10 rounded-lg md:rounded-xl overflow-hidden bg-gray-200">
-=======
         <div className="relative w-full h-[400px] mb-8 rounded-xl overflow-hidden bg-gray-100 shadow-md">
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
           {berita.imageUrl ? (
             <Image
               src={berita.imageUrl}
               alt={berita.title}
               fill
               className="object-cover"
-<<<<<<< HEAD
-              sizes="(max-width: 768px) 100vw, 800px"
-              priority
-            />
-          ) : (
-            <div className="w-full h-full">
-              <Image
-                src="/placeholder-landscape.jpg"
-                alt={berita.title}
-                fill
-                className="object-cover"
-                unoptimized
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
-=======
               unoptimized
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
                <svg className="w-20 h-20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01" /></svg>
                <span>Tidak ada gambar</span>
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
             </div>
           )}
         </div>
 
-<<<<<<< HEAD
-        {/* Content */}
-        <section className="prose prose-sm md:prose-lg max-w-none">
-          {berita.content.map((paragraph, index) => (
-            <p
-              key={index}
-              className="text-base md:text-lg text-gray-700 leading-relaxed mb-4 md:mb-6 break-words"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </section>
-=======
         <article className="prose prose-lg max-w-none prose-blue text-gray-800">
             <div dangerouslySetInnerHTML={{ __html: berita.content }} />
         </article>
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
 
         {onBack && (
           <div className="mt-12 border-t pt-6">
             <button
               onClick={onBack}
-<<<<<<< HEAD
-              className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-              tabIndex={0}
-            >
-              <svg
-                className="w-4 h-4 md:w-5 md:h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              <span>Kembali ke Daftar Berita</span>
-=======
               className="cursor-pointer flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors"
             >
               <span>← Kembali ke Daftar Berita</span>
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
             </button>
           </div>
         )}
 
-<<<<<<< HEAD
-        <div className="max-w-4xl mx-auto px-4">
-          <LikePage
-            initialLikes={100}
-            initialComments={4}
-            onLike={() => console.log("Liked")}
-            onComment={() => console.log("Comment")}
-            onShare={() => console.log("Share")}
-          />
-        </div>
-      </div>
-    </article>
-=======
         <div className="mt-10 border-t pt-8">
           <LikePage beritaId={berita.id} />
         </div>
       </div>
     </div>
->>>>>>> 49166a843f77bcff2f7c65d71e3f700226b16917
   );
 }
