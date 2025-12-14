@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { InfoModal } from '@/components/ui/modal_desa';
 import Controls from './components/Controls';
 import MapArea from './components/MapArea';
-import StatsCards from './components/StatsCards';
 import LegendCard from './components/LegendCard';
 
 export default function Home() {
@@ -95,32 +94,10 @@ export default function Home() {
 
             {/* <StatsCards /> */}
 
-            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className=" max-w-7xl mx-auto my-8 ">
               <LegendCard />
 
-              <div className="bg-white rounded-xl shadow-[1px_1px_41px_2px_rgba(17,_12,_46,_0.15)] p-6">
-                <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                  <span>📊</span>
-                  <span>Statistik Desa</span>
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-blue-100 rounded-lg">
-                    <span className="text-sm font-medium text-gray-700">Total Dusun</span>
-                    <span className="text-lg font-bold text-[#044BB1]">13</span>
-                  </div>
-
-                  <div className="flex justify-between items-center p-3 bg-purple-100 rounded-lg">
-                    <span className="text-sm font-medium text-gray-700">Anggota TAGANA</span>
-                    <span className="text-lg font-bold text-purple-600">20</span>
-                  </div>
-
-                  <div className="flex justify-between items-center p-3 bg-orange-100 rounded-lg">
-                    <span className="text-sm font-medium text-gray-700">Total Penduduk</span>
-                    <span className="text-lg font-bold text-orange-600">9.417</span>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+            </div>
 
           </div>
         </main>

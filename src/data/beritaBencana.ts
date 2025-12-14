@@ -8,7 +8,7 @@ export interface BeritaBencana {
   description: string;
   content: string;
   image: string;
-  category: "Banjir" | "Longsor" | "Gempa" | "Angin Puting Beliung" | "Kebakaran" | "Lainnya";
+  category: "Banjir" | "Longsor" | "Gempa"  |  "Kekeringan"  | "Kebakaran" | "Lainnya";
   location: string;
   date: string;
   time: string;
@@ -104,5 +104,4 @@ Tim TAGANA Sriharjo melakukan patroli ke seluruh dusun untuk memastikan kondisi 
     status: "Selesai",
     author: "Tim TAGANA Sriharjo",
   },
- 
 ];
