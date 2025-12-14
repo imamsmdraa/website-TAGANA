@@ -3,8 +3,7 @@
 import { useState, useMemo } from "react";
 import { beritaBencanaData } from "@/data/beritaBencana";
 import { useRouter } from "next/navigation";
-import { Layout } from "./components/layout/layout";
-import { NewsGrid } from "./components/layout/NewsGrid";
+import { NewsGrid } from "./components/NewsGrid";
 import { NoResults } from "./components/NoResults";
 import  Filterberita from "./components/FIlterBerita";
 
@@ -85,10 +84,7 @@ export default function BeritaBencanaPage() {
   const handleReadMore = (id: string) => router.push(`/BeritaBencana/${id}`);
 
   return (
-    <Layout
-      onFilterChange={handleFilterChange}
-      onBack={() => router.push("/home")}
-    >
+    <div className="max-w-7xl mx-auto px-4 py-8 mb-48">
       {/* Search Bar and Filter Button */}
       <div className="mb-6 flex gap-3">
         <div className="relative flex-1">
@@ -174,6 +170,6 @@ export default function BeritaBencanaPage() {
           onReadMore={handleReadMore}
         />
       )}
-    </Layout>
+    </div>
   );
 }

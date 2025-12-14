@@ -77,7 +77,7 @@ export function CommentPage({
   const displayComments = comments.length > 0 ? comments : defaultComments;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 mt-8">
+    <div className="bg-white rounded-lg border border-gray-200 p-6 mt-8 shadow-2xl">
       {/* Header */}
       <h3 className="text-lg font-bold text-gray-900 mb-6">
         Komentar ({totalComments})

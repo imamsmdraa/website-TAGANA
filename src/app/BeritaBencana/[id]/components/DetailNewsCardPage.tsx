@@ -40,7 +40,7 @@ export function DetailNewsCardPage({ berita, onBack }: DetailNewsCardPageProps) 
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white max-w-5xl mx-auto shadow-2xl rounded-lg ">
       <div className="max-w-4xl mx-auto px-4 py-4 md:py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-xs md:text-sm text-gray-600 mb-4 md:mb-6">
