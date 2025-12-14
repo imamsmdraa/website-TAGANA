@@ -98,7 +98,7 @@ export default function BeritaBencanaPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-200 via-white to-blue-200 ">
       <Header onBack={() => router.push("/home")} />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="max-w-7xl container mx-auto px-4 py-8">
         <FilterPanel
           show={showFilter}
           toggleShow={() => setShowFilter((s) => !s)}
