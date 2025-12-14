@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { EventDB } from "@/services/eventService";
 
 interface MobileCalendarProps {
   onSelectDate: (date: string | null) => void;
+  events?: EventDB[];
 }
 
-export default function MobileCalendar({ onSelectDate }: MobileCalendarProps) {
+export default function MobileCalendar({ onSelectDate, events = [] }: MobileCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
 
@@ -25,13 +27,8 @@ export default function MobileCalendar({ onSelectDate }: MobileCalendarProps) {
 
   const today = new Date();
 
-  const prevMonth = () => {
-    setCurrentDate(new Date(year, month - 1, 1));
-  };
-
-  const nextMonth = () => {
-    setCurrentDate(new Date(year, month + 1, 1));
-  };
+  const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
+  const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
   const handleDateClick = (day: number) => {
     const clickedMonth = String(month + 1).padStart(2, '0');
@@ -76,7 +73,10 @@ export default function MobileCalendar({ onSelectDate }: MobileCalendarProps) {
 
       <div className="grid grid-cols-7 gap-2 text-center">
         {calendar.map((day, i) => {
-          // Cek apakah hari ini
+          const currentDayStr = day 
+            ? `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` 
+            : "";
+
           const isToday =
             day &&
             day === today.getDate() &&
@@ -85,20 +85,25 @@ export default function MobileCalendar({ onSelectDate }: MobileCalendarProps) {
 
           const isSelected =
             day &&
-            selectedDateStr === `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            selectedDateStr === currentDayStr;
+
+          const hasEvent = day && events.some(e => e.event_date === currentDayStr);
 
           return (
             <div
               key={i}
               onClick={() => day && handleDateClick(day)}
               className={`
-                h-10 w-10 flex items-center justify-center rounded-full text-sm font-medium transition-all
+                relative h-10 w-10 flex flex-col items-center justify-center rounded-lg text-sm font-medium transition-all
                 ${day ? "cursor-pointer hover:bg-blue-50 hover:text-blue-600" : "pointer-events-none"}
                 ${isToday && !isSelected ? "bg-gray-100 text-gray-900 border border-gray-300" : ""}
                 ${isSelected ? "bg-blue-600 text-white shadow-md hover:bg-blue-700" : "text-gray-700"}
               `}
             >
-              {day}
+              <span>{day}</span>
+              {hasEvent && (
+                <span className={`absolute bottom-1.5 w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-orange-500"}`}></span>
+              )}
             </div>
           );
         })}

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { EventDB } from "@/services/eventService"; 
 
 interface MobileCalendarProps {
   onSelectDate: (date: string | null) => void;
+  events?: EventDB[]; 
 }
 
-export default function MobileCalendar({ onSelectDate }: MobileCalendarProps) {
+export default function MobileCalendar({ onSelectDate, events = [] }: MobileCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
 
@@ -28,13 +30,11 @@ export default function MobileCalendar({ onSelectDate }: MobileCalendarProps) {
   const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
   const handleDateClick = (day: number) => {
-    // Format YYYY-MM-DD
     const clickedMonth = String(month + 1).padStart(2, '0');
     const clickedDay = String(day).padStart(2, '0');
     const dateStr = `${year}-${clickedMonth}-${clickedDay}`;
 
     if (selectedDateStr === dateStr) {
-      // Unselect jika diklik lagi
       setSelectedDateStr(null);
       onSelectDate(null);
     } else {
@@ -65,21 +65,29 @@ export default function MobileCalendar({ onSelectDate }: MobileCalendarProps) {
 
       <div className="grid grid-cols-7 gap-3 text-center">
         {calendar.map((day, i) => {
+          const currentDayStr = day ? `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` : "";
+          
           const isToday = day && day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
-          const isSelected = day && selectedDateStr === `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const isSelected = day && selectedDateStr === currentDayStr;
+
+          const hasEvent = day && events.some(e => e.event_date === currentDayStr);
 
           return (
             <div
               key={i}
               onClick={() => day && handleDateClick(day)}
               className={`
-                h-10 w-10 sm:h-14 sm:w-14 flex items-center justify-center rounded-lg text-sm transition-all
+                relative h-10 w-10 sm:h-14 sm:w-14 flex flex-col items-center justify-center rounded-lg text-sm transition-all
                 ${day ? "cursor-pointer hover:bg-blue-100" : "text-transparent pointer-events-none"}
                 ${isToday && !isSelected ? "border-2 border-blue-500 bg-blue-50 font-semibold text-blue-600" : ""}
                 ${isSelected ? "bg-blue-600 text-white shadow-md font-bold hover:bg-blue-700" : ""}
               `}
             >
-              {day}
+              <span>{day}</span>
+              
+              {hasEvent && (
+                <span className={`absolute bottom-2 sm:bottom-3 w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-orange-500"}`}></span>
+              )}
             </div>
           );
         })}
