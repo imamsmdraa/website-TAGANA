@@ -86,6 +86,29 @@ export function Navbar() {
               </div>
             </div>
 
+            {/* EVENT DAN BERITA*/}
+            
+            <div className="hidden md:flex items-center gap-6 lg:gap-8">
+              <button
+                onClick={() => router.push('/EventListPage')}
+                className="text-sm lg:text-base font-semibold text-gray-700 hover:text-[#044BB1] transition-colors duration-200 relative group"
+              >
+                Event
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#044BB1] group-hover:w-full transition-all duration-300"></span>
+              </button>
+              
+              <button
+                onClick={() => router.push('/BeritaBencana')}
+                className="text-sm lg:text-base font-semibold text-gray-700 hover:text-[#044BB1] transition-colors duration-200 relative group"
+              >
+                Berita Bencana
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#044BB1] group-hover:w-full transition-all duration-300"></span>
+              </button>
+            </div>
+
+
+
+
             {/* Right side - Navigation Buttons */}
             <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 lg:gap-3">
               {/* Login Button */}
