@@ -4,12 +4,14 @@ import { useState } from "react";
 import Card from "@/components/ui/card";
 import MobileCalendar from "./calendar";
 import EventList from "./EventList";
+import { EventDB } from "@/services/eventService"; 
 
 interface AgendaProps {
   refreshTrigger?: number;
+  events?: EventDB[];
 }
 
-export default function Agenda({ refreshTrigger }: AgendaProps) {
+export default function Agenda({ refreshTrigger, events = [] }: AgendaProps) {
   const [filterDate, setFilterDate] = useState<string | null>(null);
 
   const getTitle = () => {
@@ -24,7 +26,7 @@ export default function Agenda({ refreshTrigger }: AgendaProps) {
     <Card className="w-full flex-col gap-8 flex">
       <h1 className="text-md font-bold text-gray-800">Kalender Kegiatan</h1>
       
-      <MobileCalendar onSelectDate={setFilterDate} />
+      <MobileCalendar onSelectDate={setFilterDate} events={events} />
 
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
