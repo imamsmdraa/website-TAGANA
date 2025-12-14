@@ -80,7 +80,7 @@ export default function BeritaList() {
   }, [searchQuery, kategoriFilter, beritaList]);
 
   const handleBeritaClick = (id: string) => {
-    router.push(`/admin/beritaTerkini/${id}`);
+    router.push(`/admin/beritaTerkini/detail?id=${id}`);
   };
 
   return (

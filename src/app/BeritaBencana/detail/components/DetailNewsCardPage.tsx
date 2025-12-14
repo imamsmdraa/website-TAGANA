@@ -3,21 +3,21 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { LikePage } from "./Likepage"; 
+import { LikePage } from "./Likepage";
 
 interface DetailNewsCardPageProps {
   berita: {
     id: string;
     title: string;
     category: string;
-    author: {
-      name: string;
+    author?: {
+      name?: string;
       avatar?: string;
     };
-    date: string;
-    readTime: string;
+    date?: string;
+    readTime?: string;
     imageUrl?: string | null;
-    content: string; 
+    content?: string;
     location?: string | null;
   };
   onBack?: () => void;
@@ -39,37 +39,45 @@ export function DetailNewsCardPage({
     return colors[category] || "bg-gray-100 text-gray-800";
   };
 
+  const authorName = berita.author?.name || "Admin";
+
   return (
     <div className="min-h-screen bg-white max-w-5xl mx-auto shadow-2xl rounded-lg my-8">
       <div className="max-w-4xl mx-auto px-6 py-8">
-        
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-          <Link href="/admin/berita" className="hover:text-blue-600 transition-colors">
-            Berita
+          <Link
+            href="/admin/beritaBencana"
+            className="hover:text-blue-600 transition-colors"
+          >
+            Berita Bencana
           </Link>
           <span>›</span>
-          <span className="text-blue-600 font-medium">{berita.category}</span>
+          <span className="text-blue-600 font-medium">{berita.category || "Umum"}</span>
         </nav>
 
         <div className="mb-4">
-          <span className={`inline-block px-4 py-1.5 rounded-md text-sm font-semibold ${getCategoryColor(berita.category)}`}>
-            {berita.category}
+          <span
+            className={`inline-block px-4 py-1.5 rounded-md text-sm font-semibold ${getCategoryColor(
+              berita.category || "Umum"
+            )}`}
+          >
+            {berita.category || "Umum"}
           </span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-          {berita.title}
+          {berita.title || "Tidak ada judul"}
         </h1>
 
         <div className="flex items-center space-x-4 mb-8">
           <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-lg overflow-hidden flex-shrink-0">
-             {berita.author.name.charAt(0)}
+            {authorName.charAt(0)}
           </div>
           <div>
-            <p className="font-semibold text-gray-900">{berita.author.name}</p>
+            <p className="font-semibold text-gray-900">{authorName}</p>
             <p className="text-sm text-gray-500">
-              {berita.date} • {berita.readTime}
+              {berita.date || "-"} • {berita.readTime || "-"}
             </p>
           </div>
         </div>
@@ -78,21 +86,34 @@ export function DetailNewsCardPage({
           {berita.imageUrl ? (
             <Image
               src={berita.imageUrl}
-              alt={berita.title}
+              alt={berita.title || "Berita"}
               fill
               className="object-cover"
               unoptimized
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
-               <svg className="w-20 h-20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01" /></svg>
-               <span>Tidak ada gambar</span>
+              <svg
+                className="w-20 h-20 mb-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1}
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01"
+                />
+              </svg>
+              <span>Tidak ada gambar</span>
             </div>
           )}
         </div>
 
-        {/* --- FIXED: Added Arbitrary Variants for Rich Text Styling --- */}
-        <article className="
+        {/* Article content */}
+        <article
+          className="
           text-gray-800 leading-relaxed
           [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mb-4 [&_h1]:mt-8
           [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mb-3 [&_h2]:mt-6
@@ -105,8 +126,9 @@ export function DetailNewsCardPage({
           [&_blockquote]:border-l-4 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:mb-4
           [&_strong]:font-bold
           [&_em]:italic
-        ">
-            <div dangerouslySetInnerHTML={{ __html: berita.content }} />
+        "
+        >
+          <div dangerouslySetInnerHTML={{ __html: berita.content || "<p>Tidak ada konten</p>" }} />
         </article>
 
         {onBack && (

@@ -11,6 +11,10 @@ export interface BeritaAcaraDB {
   kategori_berita_id: number;
   status?: string;
   created_at?: string;
+  kategori_berita?: {
+    id: number;
+    nama: string;
+  };
 }
 
 export const beritaService = {

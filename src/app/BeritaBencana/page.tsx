@@ -105,7 +105,9 @@ export default function BeritaBencanaPage() {
     });
   };
 
-  const handleReadMore = (id: number) => router.push(`/BeritaBencana/${id}`);
+  const handleReadMore = (id: number) =>
+  router.push(`/BeritaBencana/detail?id=${id}`);
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 mb-48">
